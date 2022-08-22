@@ -1,0 +1,23 @@
+github 允许上传的文件最大
+2022-06-02 09:52:07
+GitHub 不允许直接上传大文件（超过100M）的文件到远程仓库，push 的时候会出现以下报错：
+
+remote: Resolving deltas: 100% (472/472), done.
+remote: error: GH001: Large files detected. 
+You may want to try Git Large File Storage - https://git-lfs.github.com.
+若想上传大文件，需使用工具 git-lfs。
+
+首先，使用 Homebrew 安装 git-lfs。
+
+$ brew install git-lfs
+接着，安装 Git 命令行扩展，在项目目录下，执行以下命令：
+
+$ git lfs install
+配置想要 git-lfs 管理的文件类型，假设想要上传的大文件为 .gif 文件：
+
+$ git lfs track "* .gif" 
+执行完这行命令，项目目录下会生成文件 .gitattributes，将 .gitattributes 提交到远程仓库。现在就可以把超过100M的相应后缀的文件提交上 Github 啦。
+
+⚠️注意：必须在大文件提交之前将这个配置文件提交上去。如果已经把大文件提交了，但是 .gitattributes 还没有提交，需要回滚版本。
+
+https://www.csdn.net/tags/OtTaIgxsMTUxNS1ibG9n.html
